@@ -5,7 +5,7 @@ exports.ROLES = {
 };
 
 exports.STAGES = {
-    First_round: 'KO',
+    KO: 'KO',
 }
 
 exports.httpStatuses = [
