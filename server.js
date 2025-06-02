@@ -7,8 +7,6 @@ require('dotenv').config();
 
 const healthCheck = require('./src/Routes/HealthCheck');
 const userRoutes = require('./src/Routes/UserRoutes');
-const groupsRoutes = require('./src/Routes/GroupRoutes');
-const standingsRoutes = require('./src/Routes/StandingRoutes');
 const matchRoutes = require('./src/Routes/MatchRoutes');
 const knockoutsRoutes = require('./src/Routes/KnockoutRoutes');
 
@@ -20,15 +18,15 @@ app.use(cors());
 
 /** Swagger */
 const swaggerDefinition = {
-  openapi: '3.0.0', // Specify OpenAPI version
+  openapi: '3.0.0',
   info: {
-    title: 'oncolympics_api', // API title
-    version: '1.0.0', // API version
-    description: 'Description of your API', // Description
+    title: 'crc_api',
+    version: '1.0.0',
+    description: 'Description of your API',
   },
   servers: [
     {
-      url: `http://localhost:${PORT}`, // Your API base URL
+      url: `http://localhost:${PORT}`,
       description: 'Local server',
     },
   ],
@@ -43,8 +41,6 @@ const swaggerDocs = swaggerJsDoc(options)
 /** Routes */
 app.use('/', healthCheck);
 app.use('/api/users', userRoutes);
-app.use('/api/groups', groupsRoutes);
-app.use('/api/standings', standingsRoutes);
 app.use('/api/knockouts', knockoutsRoutes);
 app.use('/api/match', matchRoutes);
 

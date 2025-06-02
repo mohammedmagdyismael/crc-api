@@ -1,8 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "oncolympics_api",
-    "description": "API documentation for Oncolympics",
+    "title": "crc_api",
+    "description": "API documentation for CRC",
     "version": "1.0.0"
   },
   "host": "localhost:5000",

@@ -5,9 +5,7 @@ const Constants = require('../utils/Constants');
 exports.getAllMatches = async (req, res) => {
   try {
     const response = {
-      [`${Constants.STAGES.Second_round}`]: [],
-      [`${Constants.STAGES.Third_round}`]: [],
-      [`${Constants.STAGES.Final_round}`]: [],
+      [`${Constants.STAGES.First_round}`]: [],
     };
 
     for (const [key, value] of Object.entries(Constants.STAGES)) {

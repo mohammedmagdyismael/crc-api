@@ -2,8 +2,8 @@ const swaggerAutogen = require('swagger-autogen')();
 
 const doc = {
   info: {
-    title: 'oncolympics_api',
-    description: 'API documentation for Oncolympics',
+    title: 'crc_api',
+    description: 'API documentation for CRC',
   },
   host: 'localhost:5000',
   schemes: ['http'],

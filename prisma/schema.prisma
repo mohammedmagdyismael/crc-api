@@ -9,14 +9,8 @@ datasource db {
 
 model CurrentMatch {
   id             Int  @id
-  currentMatchId Int?
   matchAdmin     Int?
-}
-
-model Groups {
-  id    Int     @id @default(autoincrement())
-  name  String  @unique(map: "name") @db.VarChar(255)
-  Teams Teams[]
+  currentMatchId Int?
 }
 
 model MatchScore {
@@ -54,20 +48,13 @@ model Teams {
   id                              Int       @id @default(autoincrement())
   name                            String    @unique(map: "name") @db.VarChar(255)
   abbrev                          String?   @db.VarChar(45)
-  group_id                        Int
-  W                               Int?      @default(0)
-  D                               Int?      @default(0)
-  L                               Int?      @default(0)
-  Pts                             Int?      @default(0)
   userId                          Int?
   logo                            String?   @db.VarChar(255)
   Matches_Matches_team1_idToTeams Matches[] @relation("Matches_team1_idToTeams")
   Matches_Matches_team2_idToTeams Matches[] @relation("Matches_team2_idToTeams")
   Users                           Users?    @relation(fields: [userId], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "FK_User_Teams")
-  Groups                          Groups    @relation(fields: [group_id], references: [id], onUpdate: Restrict, map: "Teams_ibfk_1")
 
   @@index([userId], map: "FK_User_Teams")
-  @@index([group_id], map: "group_id")
 }
 
 model Users {
