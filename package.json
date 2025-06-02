@@ -5,7 +5,11 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "swagger": "node swaggerConfig.js"
+    "swagger": "node swaggerConfig.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate:deploy": "prisma migrate deploy",
+    "build": "npm run prisma:generate && npm run prisma:migrate:deploy && <your-existing-build-command>",
+    "deploy": "npm run build"
   },
   "author": "",
   "license": "ISC",
