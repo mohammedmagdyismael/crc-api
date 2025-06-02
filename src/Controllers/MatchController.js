@@ -2,7 +2,6 @@
 
 const db = require('../db');
 const prisma = require('../db_prisma');
-const groupController = require('./GroupController');
 const Constants = require('../utils/Constants');
 
 // Moderator
@@ -216,7 +215,6 @@ exports.endMatch = async (req, res) => {
       await db.query(query);
       try {
         await aggregateScores(matchId);
-        await groupController.groupsAggregator();
       } catch (e) {
         console.log(e);
       }
@@ -323,7 +321,6 @@ exports.stopAnswer = async (req, res) => {
         
         try {
           await aggregateScores(matchId);
-          await groupController.groupsAggregator();
         } catch (e) {
           console.log(e);
         }
@@ -462,10 +459,6 @@ exports.resetMatch = async (req, res) => {
         DELETE FROM MatchScore where matchId = ${matchId};
       `;
       await db.query(resetqueryB);
-
-
-      await groupController.groupsAggregator()
-
       res.status(200).json({ message: `Match Reset!` });
     } catch (err) {
       res.status(400).json({ error: err });
