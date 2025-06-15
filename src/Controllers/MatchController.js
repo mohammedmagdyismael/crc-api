@@ -724,7 +724,7 @@ exports.setAnswer = async (req, res) => {
       const stopMatchQuery = `
           UPDATE Matches
           SET canAnswer = 0
-          WHERE id in (select currentMatchId from CurrentMatch where id = 0 AND matchAdmin = ${userId});
+          WHERE id = ${matchId};
         `;
       await db.query(stopMatchQuery);
     }
