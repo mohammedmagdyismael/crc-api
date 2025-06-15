@@ -624,6 +624,7 @@ exports.getNextMatchPlayer = async (req, res) => {
     const [match] = await db.query(query);
     let response = [];
 
+
     if (!match) {
       return res.status(404).json({ message: 'No upcoming match found' });
     } else {
@@ -660,7 +661,7 @@ exports.getNextMatchPlayer = async (req, res) => {
 
 exports.setAnswer = async (req, res) => {
   const token = req.headers.token;
-  const { answer, answerId } = req.body;
+  const { answer, answerId, isExtraQuestion } = req.body;
 
 
   try {
@@ -717,6 +718,15 @@ exports.setAnswer = async (req, res) => {
       await db.query(`UPDATE MatchScore SET score_team1 = ${answer ? 1 : 0}, team1answerid = ${answerId} where matchId = ${matchId} AND questionId = ${currentquestion}`);
     } else if (team_record[0].id === team2_id) {
       await db.query(`UPDATE MatchScore SET score_team2 = ${answer ? 1 : 0}, team2answerid = ${answerId} where matchId = ${matchId} AND questionId = ${currentquestion}`);
+    }
+
+    if (isExtraQuestion) {
+      const stopMatchQuery = `
+          UPDATE Matches
+          SET canAnswer = 0
+          WHERE id in (select currentMatchId from CurrentMatch where id = 0 AND matchAdmin = ${userId});
+        `;
+      await db.query(stopMatchQuery);
     }
 
   
