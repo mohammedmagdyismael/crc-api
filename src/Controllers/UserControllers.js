@@ -41,14 +41,14 @@ exports.login = async (req, res) => {
 
 exports.userInfo = async (req, res) => {
     try {
-        const { role, id } = req?.data;
+        const { role, id, username } = req?.data;
         const payload = {
             isAdmin: false,
             name: '',
             logo: '',
         }
         if (role === Constants.ROLES.ADMIN) {
-            payload.name = Constants.ROLES.ADMIN;
+            payload.name = username;
             payload.isAdmin = true;
         }
         else if (role === Constants.ROLES.TEAM) {

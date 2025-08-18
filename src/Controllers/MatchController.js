@@ -46,12 +46,13 @@ exports.getNextMatchModerator = async (req, res) => {
       JOIN 
           Teams team_2 ON Matches.team2_id = team_2.id
       where Matches.id in (
-              select currentMatchId from CurrentMatch where id = 0 AND matchAdmin = ${userId}
+              select currentMatchId from CurrentMatch where matchAdmin = ${userId}
       );
     `;
 
     // Query to get the next match for the user's team
     const [match] = await db.query(query);
+    console.log(match);
 
     if (!match) {
       return res.status(404).json({ message: 'No upcoming match found' });
@@ -105,7 +106,7 @@ exports.startMatch = async (req, res) => {
           FROM 
               Matches
           where Matches.id in (
-                  select currentMatchId from CurrentMatch where id = 0 AND matchAdmin = ${userId}
+                  select currentMatchId from CurrentMatch where matchAdmin = ${userId}
           );
         `;
         const [match] = await db.query(matchRecord);
@@ -200,7 +201,7 @@ exports.endMatch = async (req, res) => {
         FROM 
             Matches
         where Matches.id in (
-                select currentMatchId from CurrentMatch where id = 0 AND matchAdmin = ${userId}
+                select currentMatchId from CurrentMatch where matchAdmin = ${userId}
         );
       `;
       const [match] = await db.query(matchRecord);
@@ -247,7 +248,7 @@ exports.nextquestion = async (req, res) => {
           FROM 
               Matches
           where Matches.id in (
-                  select currentMatchId from CurrentMatch where id = 0 AND matchAdmin = ${userId}
+                  select currentMatchId from CurrentMatch where matchAdmin = ${userId}
           );
         `;
       const [match] = await db.query(matchRecord);
@@ -303,7 +304,7 @@ exports.stopAnswer = async (req, res) => {
           FROM 
               Matches
           where Matches.id in (
-                  select currentMatchId from CurrentMatch where id = 0 AND matchAdmin = ${userId}
+                  select currentMatchId from CurrentMatch where matchAdmin = ${userId}
           );
         `;
         const [match] = await db.query(matchRecord);
@@ -313,7 +314,7 @@ exports.stopAnswer = async (req, res) => {
         const query = `
           UPDATE Matches
           SET canAnswer = 0
-          WHERE id in (select currentMatchId from CurrentMatch where id = 0 AND matchAdmin = ${userId});
+          WHERE id in (select currentMatchId from CurrentMatch where matchAdmin = ${userId});
         `;
 
         // Update Question Index
@@ -366,7 +367,7 @@ exports.matchScores = async (req, res) => {
           JOIN 
             Teams team_2 ON MatchScore.team2_id = team_2.id
           where MatchScore.matchId in (
-                  select currentMatchId from CurrentMatch where id = 0 AND matchAdmin = ${userId}
+                  select currentMatchId from CurrentMatch where matchAdmin = ${userId}
           );
         `;
 
@@ -442,7 +443,7 @@ exports.resetMatch = async (req, res) => {
         FROM 
             Matches
         where Matches.id in (
-                select currentMatchId from CurrentMatch where id = 0 AND matchAdmin = ${userId}
+                select currentMatchId from CurrentMatch where matchAdmin = ${userId}
         );
       `;
       const [match] = await db.query(matchRecord);
@@ -488,7 +489,7 @@ exports.rewardTeam = async (req, res) => {
       FROM 
           Matches
       where Matches.id in (
-              select currentMatchId from CurrentMatch where id = 0 AND matchAdmin = ${userId}
+              select currentMatchId from CurrentMatch where matchAdmin = ${userId}
       );
     `;
     const [match] = await db.query(matchRecord);
@@ -538,7 +539,7 @@ exports.penalTeam = async (req, res) => {
       FROM 
           Matches
       where Matches.id in (
-              select currentMatchId from CurrentMatch where id = 0 AND matchAdmin = ${userId}
+              select currentMatchId from CurrentMatch where matchAdmin = ${userId}
       );
     `;
     const [match] = await db.query(matchRecord);
